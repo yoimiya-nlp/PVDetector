@@ -1,6 +1,6 @@
 # PVDetector: Pretrained Vulnerability Detection on Vulnerability-enriched Code Semantic Graph [TOSEM 2025]
 ## :rocket:Highlight
-PVDetector is a novel approach that utilizes rich code semantics, incorporates vulnerability knowledge, and leverages pretrained code representations for precise vulnerability detection. At its core, PVDetector employs a new model called Vulnerability-enriched Code Semantic Graph (VCSG), which accurately characterizes functions by distinguishing the semantics of identical variables and more finely capturing control dependencies, data dependencies, and vulnerability relationships.
+PVDetector is a novel approach that utilizes rich code semantics for precise vulnerability detection. At its core, PVDetector employs a new model called Vulnerability-enriched Code Semantic Graph (VCSG), which accurately characterizes functions by distinguishing the semantics of identical variables and more finely capturing control dependencies, data dependencies, and vulnerability relationships.
 
 ![image](https://github.com/yoimiya-nlp/PVDetector/blob/main/PVDetector.png)
 ## :wrench:How to Use

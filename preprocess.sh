@@ -3,7 +3,7 @@
 # ljy@20250220
 #
 
-MODEL="pretrain_model"
+MODEL="microsoft/codebert-base"
 DATASET="your dataset name"
 LANGUAGE="c"
 

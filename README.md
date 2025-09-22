@@ -20,12 +20,12 @@ sh preprocess.sh
 ```
 This process will generate the VCSG and place the preprocessed dataset in the ```preprocessed_data``` folder.
 ### Step 2: Training
-**Train the PVDetector model**, remember to set ```DATASET``` to the dataset name you want. Meanwhile, ```FROM_CHECKPOINT``` and ```TO_CHECKPOINT``` respectively indicate the weight from which training starts and the location where the weight is stored after training.
+**Train the PVDetector model.** Remember to set ```DATASET``` to the dataset name you want. Meanwhile, ```FROM_CHECKPOINT``` and ```TO_CHECKPOINT``` respectively indicate the weight from which training starts and the location where the weight is stored after training.
 ```
 sh train.sh
 ```
 ### Step 3: Testing
-**Test the PVDetector model**, use ```DATASET``` and ```FROM_CHECKPOINT``` to choose the dataset and weights, thereby testing the vulnerability detection performance of PVDetector.
+**Test the PVDetector model.** Use ```DATASET``` and ```FROM_CHECKPOINT``` to choose the dataset and weights, thereby testing the vulnerability detection performance of PVDetector.
 ```
 sh test.sh
 ```

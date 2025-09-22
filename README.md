@@ -32,5 +32,11 @@ sh test.sh
 ## :star:Citation
 If you find this repo useful, please cite our paper.
 ```
-comming soon
+@article{li2025pvdetector,
+  title={PVDetector: Pretrained Vulnerability Detection on Vulnerability-enriched Code Semantic Graph},
+  author={Li, Jiayuan and Cui, Lei and Zhang, Jie and Li, Lun and Xi, Rongrong and Zhu, Hongsong},
+  journal={ACM Transactions on Software Engineering and Methodology},
+  year={2025},
+  publisher={ACM New York, NY}
+}
 ```

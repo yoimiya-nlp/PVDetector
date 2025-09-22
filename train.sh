@@ -21,7 +21,7 @@ python finetune.py \
     --train_data_file=${DATASET}_train.pkl \
     --eval_data_file=${DATASET}_val.pkl \
     --test_data_file=${DATASET}_test.pkl \
-    --epoch 2 \
+    --epoch 10 \
     --code_length 512 \
     --data_flow_length 96 \
     --control_flow_length 20 \

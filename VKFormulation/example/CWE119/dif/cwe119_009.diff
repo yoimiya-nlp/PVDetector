@@ -1,0 +1,11 @@
+--- cwe119_009.c
++++ cwe119_009_s .c
+@@ -1,7 +1,7 @@
+ void buffer_overflow_memcpy1(char *input) {
+     char buffer[10];
+     // 没有检查输入的长度，input过长会导致溢出
+-    memcpy(buffer, input, strlen(input) + 1);
++    memcpy(buffer, input, strlen(input)-10);
+     printf("Buffer: %s\n", buffer);
+ }
+ 

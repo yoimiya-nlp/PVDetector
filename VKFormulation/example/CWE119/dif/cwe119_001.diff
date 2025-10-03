@@ -1,0 +1,11 @@
+--- cwe119_001.c
++++ cwe119_001_s.c
+@@ -10,7 +10,7 @@
+         printf("Error!input too long!");
+     }
+     else {
+-        strcpy(mem, temp);
++        strncpy(mem, temp, 10);
+      }
+      return 0;
+ }

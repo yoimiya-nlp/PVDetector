@@ -1,0 +1,12 @@
+--- cwe119_003.c
++++ cwe119_003_s.c
+@@ -5,8 +5,6 @@
+     char temp[TEMP_NUM];
+     mem_num = mem_num - 50;
+     mem = (char *)malloc(mem_num);
+-    gets(temp);
+-
+-    strcpy(mem, temp);
++    strncpy(mem, temp, 10);
+     return 0;
+ }

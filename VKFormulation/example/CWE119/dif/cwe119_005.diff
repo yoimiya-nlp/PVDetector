@@ -1,0 +1,12 @@
+--- cwe119_005.c
++++ cwe119_005_s.c
+@@ -3,7 +3,8 @@
+ void buffer_overflow2() {
+     char buffer[20];
+     printf("Enter some text: ");
+-    gets(buffer); 
++    fgets(buffer, sizeof(buffer), stdin);
++    buffer[strcspn(buffer, "\n")] = 0;
+     printf("You entered: %s\n", buffer);
+ }
+ 

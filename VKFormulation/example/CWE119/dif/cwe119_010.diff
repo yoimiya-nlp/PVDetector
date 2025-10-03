@@ -1,0 +1,10 @@
+--- cwe119_010.c
++++ cwe119_010_s.c
+@@ -1,6 +1,6 @@
+ void buffer_overflow_memcpy2(char *input, size_t length) {
+     char buffer[20];
+-    memcpy(buffer, input, length);
++    memcpy(buffer, input, 10);
+     printf("Buffer: %s\n", buffer);
+ }
+ 

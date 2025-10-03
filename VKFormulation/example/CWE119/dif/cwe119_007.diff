@@ -1,0 +1,12 @@
+--- cwe119_007.c
++++ cwe119_007_s.c
+@@ -2,8 +2,7 @@
+ 
+ void buffer_overflow3(char *input) {
+     char buffer[15];
+-    sprintf(buffer, "Input: %s", input);
+-    printf("%s\n", buffer);
++    printf("%s\n", input);
+ }
+ 
+ int main() {

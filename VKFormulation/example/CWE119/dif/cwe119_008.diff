@@ -1,0 +1,11 @@
+--- cwe119_008.c
++++ cwe119_008_s.c
+@@ -2,7 +2,7 @@
+ 
+ void buffer_overflow5() {
+     char buffer[8];
+-    for (int i = 0; i <= 8; i++) { 
++    for (int i = 0; i <= 5; i++) { 
+         buffer[i] = 'A';
+     }
+     printf("Buffer: %s\n", buffer);

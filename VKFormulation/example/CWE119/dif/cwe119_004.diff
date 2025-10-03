@@ -1,0 +1,11 @@
+--- cwe119_004.c
++++ cwe119_004_s.c
+@@ -3,7 +3,7 @@
+ 
+ void buffer_overflow1(char *input) {
+     char buffer[10];
+-    strcpy(buffer, input);  
++    strncpy(buffer, input, 8);  
+     printf("Buffer: %s\n", buffer);
+ }
+ 

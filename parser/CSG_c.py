@@ -214,11 +214,14 @@ def generate_CSG_df_subgraph_c(root_node,index_to_code,states,code,new_tokens):
                 temp, states, new_tokens = generate_CSG_df_subgraph_c(argument_list, index_to_code, states, code, new_tokens)
                 csg_df += temp
                 csg_df.append(('input',len(index_to_code),'declaration',[],[]))
+                n_input = len(index_to_code)+len(new_tokens)
+                new_tokens.append('input')
                 for index1 in argument_indexs:
                     idx1, code1 = index_to_code[index1]
-                    csg_df.append((code1, idx1, 'comes_from', ['input'], [len(index_to_code)+len(new_tokens)]))
-                    states[code1] = [idx1]
-                new_tokens.append('input')
+                    csg_df.append((code1, len(index_to_code)+len(new_tokens), 'comes_from', ['input'], [n_input]))
+                    csg_df.append((code1, len(index_to_code)+len(new_tokens), 'comes_from', [code1], [idx1]))
+                    states[code1] = [len(index_to_code)+len(new_tokens)]
+                    new_tokens.append(code1)
                 return sorted(csg_df, key=lambda x: x[1]), states, new_tokens
             elif function_name in mem_func_list:
                 csg_df = []

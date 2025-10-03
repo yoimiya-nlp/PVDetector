@@ -104,6 +104,65 @@ class CSGFeatures(object):
         self.url = url
 
 
+def merge_df_equals(df_edges):
+    """
+    input: CSG df edges list [(token, child_id, relation, [parent_tokens], [parent_ids]), ...]
+    process: merge equals_to to comes_from (only contains comes_from/declaration), and compress the equivalence class to the representative id
+    output: normalized and deduplicated df edges list (only contains declaration/comes_from)
+    """
+    # union-find by id
+    parent = {}
+    def find(x):
+        parent.setdefault(x, x)
+        if parent[x] != x:
+            parent[x] = find(parent[x])
+        return parent[x]
+    def union(a, b):
+        ra, rb = find(a), find(b)
+        if ra != rb:
+            parent[rb] = ra
+
+    # 1) use equals_to to build union find set: child_id is equivalent to the id it comes from (parent_ids[0])
+    for tok, cid, rel, ptoks, pids in df_edges:
+        if rel == 'equals_to' and pids:
+            union(pids[0], cid)
+
+    # 2) rewrite other edges, map to representative id; discard equals_to; and deduplicate
+    #    use (token, child_id) -> {parent_id: parent_token} to aggregate parents
+    agg = {}
+    for tok, cid, rel, ptoks, pids in df_edges:
+        if rel == 'equals_to':
+            continue
+        rep_c = find(cid)
+        if rel == 'declaration':
+            key = (tok, rep_c)
+            entry = agg.setdefault(key, {})
+            # declaration has no parent; keep as placeholder, avoid being completely discarded
+            entry.setdefault(None, None)
+        else:
+            key = (tok, rep_c)
+            entry = agg.setdefault(key, {})
+            for ptok, pid in zip(ptoks, pids):
+                rep_p = find(pid)
+                if rep_p == rep_c:
+                    continue  # avoid self-loop
+                # deduplicate by id; if same id but different token, keep the last token string
+                entry[rep_p] = ptok
+
+    # 3) expand to standard list, only includes declaration/comes_from, sorted by child_id
+    result = []
+    for (tok, rep_c), parent_map in agg.items():
+        if list(parent_map.keys()) == [None]:
+            # declaration
+            result.append((tok, rep_c, 'declaration', [], []))
+        else:
+            ids_sorted = sorted(parent_map.keys())
+            ptoks_sorted = [parent_map[i] for i in ids_sorted]
+            result.append((tok, rep_c, 'comes_from', ptoks_sorted, ids_sorted))
+    result.sort(key=lambda x: x[1])
+    return result
+    
+
 def generate_csg_graph(code, this_parser, lang):
     # generate data flow subgraph, control flow subgraph, and vul relation subgraph
     # remove comments
@@ -143,7 +202,7 @@ def generate_csg_graph(code, this_parser, lang):
     for d in dataflows:
         if d[1] in df_indexs:
             filtered_dataflows.append(d)
-    df_subgraph = filtered_dataflows 
+    df_subgraph = merge_df_equals(filtered_dataflows)
 
     # generate control flow subgraph
     try:

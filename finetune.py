@@ -368,8 +368,11 @@ def main():
     config = RobertaConfig.from_pretrained(args.config_name if args.config_name else args.model_name_or_path)
     config.num_labels = 1
     tokenizer = RobertaTokenizer.from_pretrained(args.tokenizer_name)
-    # pvdetector_model = RobertaForSequenceClassification.from_pretrained(args.model_name_or_path,config=config)
-    pvdetector_model = RobertaForSequenceClassification(config)
+    
+    # train from pretrain model 
+    pvdetector_model = RobertaForSequenceClassification.from_pretrained(args.model_name_or_path,config=config)
+    # train from checkpoint
+    # pvdetector_model = RobertaForSequenceClassification(config)
 
     pvdetector_model = PVModel(pvdetector_model,config,tokenizer,args)
     total_num = sum(p.numel() for p in pvdetector_model.parameters())
